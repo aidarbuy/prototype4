@@ -1,6 +1,6 @@
 var express = require("express");
-var mongoose = require('mongoose');
 var doctorModel = require('./models/Doctor');
+var doctorsData = require('./doctors-data');
 
 var app = express();
 
@@ -10,8 +10,8 @@ app.set('views', __dirname);
 app.set('view engine', 'jade');
 
 app.get('/api/doctors', function(req, res) {
-    mongoose.model('Doctor').find({}).exec(function(error, collection) {
-        console.log('serving doctors api');
+    doctorsData.findDoctors().then(function(collection) {
+        console.log('Serving doctors api..');
         res.send(collection);
     });
 });
@@ -20,13 +20,10 @@ app.get('*', function(req, res) {
     res.render('index');
 });
 
-// mongoose.connect('mongodb://localhost/prototype4');
-mongoose.connect('mongodb://dbuser:dbpassword@ds041861.mongolab.com:41861/prototype4');
-
-var con = mongoose.connection;
-con.once('open', function() {
+doctorsData.connectDB('mongodb://dbuser:dbpassword@ds041861.mongolab.com:41861/prototype4')
+.then(function() {
     console.log("connected to MongoDB succesfully!");
-    doctorModel.seedDoctors();
+    doctorsData.seedDoctors();
 });
 
 app.listen(process.env.PORT, process.env.IP);

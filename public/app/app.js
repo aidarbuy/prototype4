@@ -1,9 +1,6 @@
-angular.module('app', []);
+angular.module('app', ['ngResource']);
 
 angular.module('app')
-    .controller('testCtrl', function($scope) {
-        $scope.doctors = [
-            {name: 'Sales Person', description: 'You will flight dragons'},
-            {name: 'Accountant', description: 'You will use the keyboard'}
-        ];
+    .controller('testCtrl', function($scope, $resource) {
+        $scope.doctors = $resource('/api/doctors').query();
     });
