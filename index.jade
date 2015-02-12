@@ -4,11 +4,20 @@ link(rel='stylesheet', href='/styles/darkly.min.css')
 script(type='text/javascript', src='/bower_components/angular/angular.min.js')
 script(type='text/javascript', src='/bower_components/angular-resource/angular-resource.min.js')
 script(type='text/javascript', src='/app/app.js')
+script(type='text/javascript', src='/app/doctors.js')
 
 body(ng-app='app')
     .container
         div(ng-controller='testCtrl')
-            .list-group
-                a.list-group-item(href='#')(ng-repeat='doctor in doctors')
-                    h2.list-group-item-heading {{ doctor.name }}
-                    p.list-group-item-text {{ doctor.description }}
+            h1 Post a New Doctor
+            form(ng-submit="submit()")
+                .form-group
+                    input.form-control(placeholder="Enter name here..." ng-model="name")
+                .form-group
+                    textarea.form-control(placeholder="Enter description here..." ng-model="description")
+                .form-group
+                    button.btn.btn-primary(type="submit") Post
+                .list-group
+                    a.list-group-item(href='#')(ng-repeat='doctor in doctors')
+                        h2.list-group-item-heading {{ doctor.name }}
+                        p.list-group-item-text {{ doctor.description }}

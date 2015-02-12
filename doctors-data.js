@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-var doctorsSeedArray = require('./doctors-seed');
+var doctorsArray = require('./doctors-seed');
+// var doctorModel = require("./models/Doctor");
 
 var Doctor = mongoose.model('Doctor');
 
@@ -8,16 +9,20 @@ var findDoctors = function(query) {
     return Promise.cast(Doctor.find(query).exec());
 };
 
+var createDoctor = Promise.promisify(Doctor.create, Doctor);
+
+// exports
+
 exports.findDoctors = findDoctors;
 
 exports.connectDB = Promise.promisify(mongoose.connect, mongoose);
 
-var createDoctor = Promise.promisify(Doctor.create, Doctor);
+exports.saveDoctor = createDoctor;
 
 exports.seedDoctors = function(){
     return findDoctors({}).then(function(collection) {
         if(collection.length === 0) {
-            return Promise.map(doctorsSeedArray.doctors, function(doctor) {
+            return Promise.map(doctorsArray.doctors, function(doctor) {
                 return createDoctor(doctor);
             });
         }
