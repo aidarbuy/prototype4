@@ -1,0 +1,15 @@
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "authors": [
+    "aidarbuy <aidarbuy@gmail.com>"
+  ],
+  "description": "prototype 4 app",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "angular": "~1.3.13",
+    "bootstrap": "~3.3.2"
+  }
+}
