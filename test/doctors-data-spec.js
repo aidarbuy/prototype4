@@ -16,7 +16,7 @@ describe("get jobs", function() {
     var doctors;
     
     before(function(done) {
-        doctorsData.connectDB('mongodb://localhost/prototype4')
+        doctorsData.connectDB('mongodb://localhossst/prototype4')
             .then(resetDoctors)
             .then(doctorsData.seedDoctors)
             .then(doctorsData.findDoctors)
